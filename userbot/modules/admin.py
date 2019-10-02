@@ -101,7 +101,7 @@ async def set_group_photo(gpic):
             await gpic.edit(PP_ERROR)
 
 
-@register(group_only=True, pattern="^.promote(?: |$)(.*)")
+@register(outgoing=True, group_only=True, pattern="^.promote(?: |$)(.*)")
 async def promote(promt):
     """ For .promote command, do promote targeted person """
     # Get targeted chat
@@ -150,7 +150,7 @@ async def promote(promt):
             f"CHAT: {promt.chat.title}(`{promt.chat_id}`)")
 
 
-@register(group_only=True, pattern="^.demote(?: |$)(.*)")
+@register(outgoing=True, group_only=True, pattern="^.demote(?: |$)(.*)")
 async def demote(dmod):
     """ For .demote command, do demote targeted person """
     # Admin right check
@@ -198,7 +198,7 @@ async def demote(dmod):
             f"CHAT: {dmod.chat.title}(`{dmod.chat_id}`)")
 
 
-@register(group_only=True, pattern="^.ban(?: |$)(.*)")
+@register(outgoing=True, group_only=True, pattern="^.ban(?: |$)(.*)")
 async def ban(bon):
     """ For .ban command, do a ban at targeted person """
     # Here laying the sanity check
@@ -250,7 +250,7 @@ async def ban(bon):
             f"CHAT: {bon.chat.title}(`{bon.chat_id}`)")
 
 
-@register(group_only=True, pattern="^.unban(?: |$)(.*)")
+@register(outgoing=True, group_only=True, pattern="^.unban(?: |$)(.*)")
 async def nothanos(unbon):
     """ For .unban command, unban the target """
     # Here laying the sanity check
@@ -574,7 +574,7 @@ async def get_admin(show):
     await show.edit(mentions, parse_mode="html")
 
 
-@register(group_only=True, pattern="^.pin(?: |$)(.*)")
+@register(outgoing=True, group_only=True, pattern="^.pin(?: |$)(.*)")
 async def pin(msg):
     # Admin or creator check
     chat = await msg.get_chat()
@@ -618,7 +618,7 @@ async def pin(msg):
             f"LOUD: {not is_silent}")
 
 
-@register(group_only=True, pattern="^.kick(?: |$)(.*)")
+@register(outgoing=True, group_only=True, pattern="^.kick(?: |$)(.*)")
 async def kick(usr):
     """ For .kick command, kick someone from the group using the userbot. """
     # Admin or creator check
