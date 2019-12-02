@@ -7,7 +7,7 @@
 
 from asyncio import create_subprocess_shell as asyncrunapp
 from asyncio.subprocess import PIPE as asyncPIPE
-from os import remove
+from os import remove, getlogin
 from platform import python_version, uname
 from shutil import which
 
@@ -17,7 +17,7 @@ from userbot import CMD_HELP, is_mongo_alive, is_redis_alive
 from userbot.events import register
 
 # ================= CONSTANT =================
-DEFAULTUSER = uname().node
+DEFAULTUSER = getlogin()
 # ============================================
 
 
@@ -26,7 +26,7 @@ async def sysdetails(sysd):
     """ For .sysd command, get system info using neofetch. """
     if not sysd.text[0].isalpha() and sysd.text[0] not in ("/", "#", "@", "!"):
         try:
-            neo = "neofetch --stdout"
+            neo = "neofetch --stdout | sed 's|@.*||'"
             fetch = await asyncrunapp(
                 neo,
                 stdout=asyncPIPE,
