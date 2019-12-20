@@ -46,7 +46,7 @@ async def coin(cspot):
     postdata = json.dumps(postdata, separators=(',', ':'))
     sign = new(secret, postdata.encode('utf-8'), sha512).hexdigest()
     headers = {
-               	'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
                 'key': key,
                 'sign': sign
                }
@@ -54,12 +54,18 @@ async def coin(cspot):
     if coinapi == "bal":
         r = post(f'https://www.coinspot.com.au/{API}', headers=headers, data=postdata).json()
         response = ""
-        r = r['balances']
-        for i in r:
+        f = r['balances']
+        for i in f:
             formatted = sub("[^a-zA-Z0-9\.:]", "", str(i))
             formatted = sub(":balance:", " balance: ", formatted)
-            formatted = sub("audbalance:", " AUD: $", formatted)
+            formatted = sub("audbalance:", " | AUD: $", formatted)
+            formatted = sub("audbalance:", " | AUD: $", formatted)
             response += sub("rate:.*", "\n", formatted)
+        val = 0
+        for e in r['balances'][:]:
+            for x in e.values():
+                val += float(x['audbalance'])
+        response = f"{response}Total AUD: {round(val, 2)}"
     elif coinapi == "price":
         r = get(f'https://www.coinspot.com.au/{API}').json()
         r = r["prices"][f"{arg1.lower()}"]["ask"]
