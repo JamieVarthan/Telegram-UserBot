@@ -56,6 +56,7 @@ async def last_fm(lastFM):
             pass
         except WSError:
             await lastFM.edit("LastFM rart, this song no work")
+            return
         tags = gettags(isNowPlaying=True, playing=playing)
         rectrack = parse.quote_plus(f"{playing}")
         rectrack = sub("^", "https://www.youtube.com/results?search_query=",
