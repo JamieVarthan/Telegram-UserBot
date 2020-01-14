@@ -51,9 +51,11 @@ async def last_fm(lastFM):
         try:
             image = User(LASTFM_USERNAME,
                          lastfm).get_now_playing().get_cover_image()
-        except (IndexError, WSError):
+        except IndexError:
             image = None
             pass
+        except WSError:
+            await lastFM.edit("LastFM rart, this song no work")
         tags = gettags(isNowPlaying=True, playing=playing)
         rectrack = parse.quote_plus(f"{playing}")
         rectrack = sub("^", "https://www.youtube.com/results?search_query=",
