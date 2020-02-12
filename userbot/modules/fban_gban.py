@@ -142,8 +142,8 @@ async def fedban_all(msg):
             if "*New FedBan*" not in resp.text:
                 failed[bangroup] = str(conv.chat_id)
             else:
-                count += 1
                 await msg.edit("`Fbanned on " + str(count) + " feds!`")
+                count += 1
             # Sleep to avoid a floodwait.
             # Prevents floodwait if user is a fedadmin on too many feds
             await sleep(0.2)
