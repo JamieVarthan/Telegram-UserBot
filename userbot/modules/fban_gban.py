@@ -82,6 +82,7 @@ async def fedban_all(msg):
     textx = await msg.get_reply_message()
     if textx:
         try:
+            banid = int(textx.sender.id)
             banreason = "[userbot] "
             banreason += banreason.join(msg.text.split(" ")[1:])
             if banreason == "[userbot]":
@@ -138,7 +139,7 @@ async def fedban_all(msg):
             await conv.send_message(f"!fban {banid} {banreason}")
             resp = await conv.get_response()
             await bot.send_read_acknowledge(conv.chat_id)
-            if "Beginning federation ban " not in resp.text:
+            if "*New FedBan*" not in resp.text:
                 failed[bangroup] = str(conv.chat_id)
             else:
                 count += 1
